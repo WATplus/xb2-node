@@ -1,6 +1,11 @@
 const express = require('express');
+const bodyParser = require("body-parser");
 const app = express();
 const port = 3000;
+
+// 解决request.body 为空的问题 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
 
 app.listen(port, () => {
 	console.log("^_^ 服务已启动");
@@ -29,9 +34,9 @@ const data = [
 	},
 ]
 
-app.get("/posts", (request, response) => {
-	response.send(data)
-})
+// app.get("/posts", (request, response) => {
+// 	response.send(data)
+// })
 
 // 带参数的接口
 app.get("/posts/:postsId", (request, response) => {
@@ -43,4 +48,25 @@ app.get("/posts/:postsId", (request, response) => {
 
 	// 响应
 	response.send(posts);
+})
+
+/* 
+创建内容
+*/
+app.post("/posts", (request, response) => {
+	// 结构请求头内的content
+	const { content } = request.body;
+	// 获取请求头中的测试信息
+	const header = request.headers["test-header"]
+	// 设置相应状态码
+	response.status(201);
+	// 设置相应头
+	response.set("test-response-header", "response header test value")
+	// 响应回去
+	response.send({
+		"message": `请求成功: ${content}`,
+		"header": {
+			"test-header": header,
+		}
+	})
 })
