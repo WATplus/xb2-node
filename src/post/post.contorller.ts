@@ -7,8 +7,17 @@ import { getPost } from "./post.service";
 export const index = (
     request:Request,
     response:Response,
-    nextFunction:NextFunction
+    next:NextFunction
 )=>{
+    /**
+     * 异常测试
+     */
+    
+    if (request.headers["error_test"] !== "error_terst"){
+        // return 是为了不继续执行控制器的后续代码
+        return next(new Error()); // next()将错误传递给异常处理
+    }
+
     const data = getPost()
     response.send(data)
 };

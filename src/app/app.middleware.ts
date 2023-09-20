@@ -1,3 +1,4 @@
+import { error } from "console";
 import {Request , Response , NextFunction} from "express"
 
 /**
@@ -11,4 +12,26 @@ export const requestUrl = (
 )=>{
     console.log(request.url);
     next()// 执行后续的中间件和控制器
+};
+
+/**
+ * 异常处理器
+*/
+
+export const defaultErrorHendler = (
+    error:any,
+    request:Request,
+    response:Response,
+    next:NextFunction
+) => {
+    let statuCode:number , message:string;
+    // 判断错误信息
+    switch (error.message) {
+        default:
+            statuCode = 500;
+            message = "默认错误处理"
+            break;
+    }
+
+    response.status(statuCode).send({message})
 };
