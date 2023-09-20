@@ -1,16 +1,28 @@
 {
   "name": "xb2_node",
   "version": "1.0.0",
-  "description": "《小白兔的开发之路》 演示项目",
+  "description": "《小白的开发之路》",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev" : "tsc-watch --onSuccess \"node dist/main.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WATplus/xb2-node.git"
   },
   "keywords": [],
-  "author": " WITplus 1656800105@qq.com",
+  "author": " WATplus 1656800105@qq.com",
   "license": "ISC",
-  "dependencies": {
+  "bugs": {
+    "url": "https://github.com/WATplus/xb2-node/issues"
+  },
+  "homepage": "https://github.com/WATplus/xb2-node#readme",
+  "devDependencies": {
+    "@types/node": "^20.6.3",
     "body-parser": "^1.20.2",
-    "express": "^4.17.1"
+    "express": "^4.18.2",
+    "tsc-watch": "^6.0.4",
+    "typescript": "^5.2.2"
   }
 }
