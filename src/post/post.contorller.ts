@@ -1,4 +1,5 @@
 import {Request , Response , NextFunction} from "express"
+import { getPost } from "./post.service";
 
 /**
  * 内容列表
@@ -8,5 +9,6 @@ export const index = (
     response:Response,
     nextFunction:NextFunction
 )=>{
-    response.send("内容列表")
+    const data = getPost()
+    response.send(data)
 };
