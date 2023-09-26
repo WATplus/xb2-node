@@ -13,6 +13,22 @@ const router = express.Router();
 router.get("/posts" ,requestUrl, postContorller.index);
 
 /**
+ * 存储数据
+*/
+router.post("/posts" , requestUrl , postContorller.store);
+
+/**
+ * 更改数据
+*/
+router.patch('/posts/:postId' , postContorller.update);
+
+/**
+ * 删除
+ */
+router.delete("/posts/:postId" , postContorller.destroy)
+
+
+/**
  * 导出路由
  */
 
