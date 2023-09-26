@@ -24,6 +24,10 @@ export const defaultErrorHendler = (
     response:Response,
     next:NextFunction
 ) => {
+    if (error){
+        console.log("!_! 出现异常 , 错误信息: " , error.message);
+        
+    }
     let statuCode:number , message:string;
     // 判断错误信息
     switch (error.message) {
