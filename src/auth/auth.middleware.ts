@@ -30,6 +30,9 @@ export const validateLoginData = async (
     const matched = await bcrypt.compare(password , user.password)
     if (!matched) return next(new Error("PASSWORD_DOES_MATCHED"))
 
+    // 向请求主体添加用户信息
+    req.body.user = user;
+
     // 没问题交给控制器创建
-    next()
+    next() 
 }
