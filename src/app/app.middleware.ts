@@ -31,6 +31,18 @@ export const defaultErrorHendler = (
     let statuCode:number , message:string;
     // 判断错误信息
     switch (error.message) {
+        case "NAME_IS_REQUIRED":
+            statuCode=  400; // bad request
+            message = "缺少用户名"
+            break;
+        case "PASSWORD_IS_REQUIRED":
+            statuCode=  400; // bad request
+            message = "缺少用户密码"
+            break;
+        case "USERNAME_ALREDY_EXIST":
+            statuCode=  409 // 冲突
+            message = "用户名已存在"
+            break;
         default:
             statuCode = 500;
             message = "默认错误处理"
