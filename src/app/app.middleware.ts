@@ -47,6 +47,10 @@ export const defaultErrorHendler = (
             statuCode=  400 // bad request
             message = "用户不存在"
             break;
+        case "PASSWORD_DOES_MATCHED":
+            statuCode=  400 // bad request
+            message = "密码错误"
+            break;
         default:
             statuCode = 500;
             message = "默认错误处理"

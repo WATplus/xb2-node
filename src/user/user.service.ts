@@ -25,12 +25,22 @@ export const createUser = async (user: UserModel) => {
  * @param name 要查询的用户名
  * @returns 
  */
-export const getUserByName = async (name : string) => {
+interface GetUserOptions {
+    password? : boolean;
+}
+
+export const getUserByName = async (
+    name : string ,
+    options:GetUserOptions = {}// 默认为空
+) => {
+    // 准备选项
+    const {password} = options;
     // 准备查询
     const statement = `
     SELECT 
         id,
         name
+        ${options ?  ', password' : ''}
     FROM user
     WHERE name = ?
     `
