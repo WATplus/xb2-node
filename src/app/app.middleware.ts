@@ -43,6 +43,10 @@ export const defaultErrorHendler = (
             statuCode=  409 // 冲突
             message = "用户名已存在"
             break;
+        case "USERNAME_DOES_NOT_EXIST":
+            statuCode=  400 // bad request
+            message = "用户不存在"
+            break;
         default:
             statuCode = 500;
             message = "默认错误处理"
