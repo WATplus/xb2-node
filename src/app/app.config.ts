@@ -17,4 +17,14 @@ export const {
     MYSQL_USER,
     MYSQL_PASSWORD,
     MYSQL_DATABASE,
+    
 } = process.env;
+
+/**
+ * 将公秘钥结构并解码
+*/
+let {PRIVATE_KEY,PUBLIC_KEY} = process.env;
+// 解码
+PRIVATE_KEY = Buffer.from(PRIVATE_KEY , "base64").toString()
+PUBLIC_KEY = Buffer.from(PUBLIC_KEY , "base64").toString()
+export {PRIVATE_KEY , PUBLIC_KEY}

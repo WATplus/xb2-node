@@ -1,5 +1,5 @@
 import app from "./app" // 这里不用/index.ts node 会自动指向 index.ts
-import { APP_PORT } from "./app/app.config";
+import { APP_PORT} from "./app/app.config";
 import { connection } from "./app/database/mysql";
 
 /**
@@ -20,3 +20,5 @@ connection.connect(error => {
     }
     console.log("@^_^@ 数据库服务链接成功");
 })
+
+
