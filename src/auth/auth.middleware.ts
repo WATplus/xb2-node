@@ -3,6 +3,7 @@ import * as userService from '../user/user.service'
 import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken"
 import { PUBLIC_KEY } from '../app/app.config'
+import { TokenPayLoad } from './auth.interface'
 
 /**
  * 验证用户的完整性
@@ -55,8 +56,9 @@ export const author = (
         if (!token) throw new Error("UNTOKEN");
 
         // 验证token
-        jwt.verify(token , PUBLIC_KEY , {algorithms:['RS256']});
+        const decoded = jwt.verify(token , PUBLIC_KEY , {algorithms:['RS256']});
         // 如果验证不过会报错 incalid signature 
+        req.user = decoded as TokenPayLoad
 
         next();
     }catch(error){

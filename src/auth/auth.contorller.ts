@@ -35,7 +35,7 @@ export const login = async (
 /**
  * 用户验证
  * @param req 
- * @param res 
+ * @param res  
  * @param next 
  */
 export const validate = (
@@ -43,5 +43,7 @@ export const validate = (
     res : Response,
     next : NextFunction
 ) => {
+    console.log(req.user);
+    
     res.sendStatus(200);
 }
