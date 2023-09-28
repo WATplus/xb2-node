@@ -30,10 +30,14 @@ export const store = async (
 ) => {
     // 根据请求主体获取要插入的数据
     const {title , content} = request.body;
-
+    // 解构出内容归属的用户 id 到 userId 中
+    const {id:userId} = request.user;
+    console.log(userId);
+    
     // 创建内容
     try{
-        const data = await creatPost({title , content});
+        // 传递存储 post 行的 id , content , userId 字段
+        const data = await creatPost({title , content , userId});
         response.status(201).send(data)
     }catch(error){
         next(error)

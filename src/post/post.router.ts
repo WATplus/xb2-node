@@ -1,6 +1,7 @@
 import express from "express"
 import * as postContorller from "./post.contorller"
 import { requestUrl } from "../app/app.middleware";
+import { author } from "../auth/auth.middleware";
 
 /**
  * 创建接口
@@ -15,7 +16,7 @@ router.get("/posts" ,requestUrl, postContorller.index);
 /**
  * 存储数据
 */
-router.post("/posts" , requestUrl , postContorller.store);
+router.post("/posts" , requestUrl , author , postContorller.store);
 
 /**
  * 更改数据

@@ -58,7 +58,7 @@ export const author = (
         // 验证token
         const decoded = jwt.verify(token , PUBLIC_KEY , {algorithms:['RS256']});
         // 如果验证不过会报错 incalid signature 
-        req.user = decoded as TokenPayLoad
+        req.user = decoded as TokenPayLoad;
 
         next();
     }catch(error){
