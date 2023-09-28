@@ -1,6 +1,8 @@
 import {Request , Response , NextFunction} from 'express'
 import * as userService from '../user/user.service'
 import bcrypt from 'bcrypt'
+import jwt from "jsonwebtoken"
+import { PUBLIC_KEY } from '../app/app.config'
 
 /**
  * 验证用户的完整性
@@ -35,4 +37,29 @@ export const validateLoginData = async (
 
     // 没问题交给控制器创建
     next() 
+}
+
+
+export const author = (
+    req : Request,
+    res : Response,
+    next : NextFunction
+) => {
+    try{
+        // 准备数据
+        const authorization = req.header("Authorization");
+        if (!authorization) throw new Error("UNAUTHORIZATION");
+        
+        // 读取 token
+        const token = authorization.replace("Bearer ","");
+        if (!token) throw new Error("UNTOKEN");
+
+        // 验证token
+        jwt.verify(token , PUBLIC_KEY , {algorithms:['RS256']});
+        // 如果验证不过会报错 incalid signature 
+
+        next();
+    }catch(error){
+        next(new Error(error.message))
+    }
 }

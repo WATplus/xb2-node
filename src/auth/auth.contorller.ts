@@ -3,6 +3,12 @@ import { signToken } from './auth.service';
 
 // import * as authService from "./auth.service"
 
+/**
+ * 登录接口 , 签发令牌
+ * @param req 
+ * @param res 
+ * @param next 
+*/
 export const login = async (
     req : Request,
     res : Response,
@@ -24,4 +30,18 @@ export const login = async (
         next(error)
     }
 
+}
+
+/**
+ * 用户验证
+ * @param req 
+ * @param res 
+ * @param next 
+ */
+export const validate = (
+    req : Request,
+    res : Response,
+    next : NextFunction
+) => {
+    res.sendStatus(200);
 }

@@ -51,6 +51,15 @@ export const defaultErrorHendler = (
             statuCode=  400 // bad request
             message = "密码错误"
             break;
+        case "invalid signature":
+            statuCode=  401 // bad request
+            message = "令牌无效"
+            break;
+        case "UNAUTHORIZATION":
+        case "UNTOKEN":
+            statuCode=  401 // 未授权
+            message = " Authorization 缺失或无效"
+            break;
         default:
             statuCode = 500;
             message = "默认错误处理"
