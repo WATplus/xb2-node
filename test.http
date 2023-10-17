@@ -1,0 +1,43 @@
+@url=http://localhost:3000
+@header=Content-Type: application/json
+
+# 内容
+
+### 获取内容列表
+GET {{url}}/posts
+
+### 添加内容
+POST {{url}}/posts HTTP/1.1
+{{header}}
+Authorization:Bearer {{login.response.body.$.token}}
+
+{
+    "title" : "管理手册",
+    "content" : "管理员接口管理手册内容"
+}
+
+### 删除内容
+POST {{url}}/posts/2 HTTP/1.1
+Authorization: Bearer {{login.response.body.$.token}}
+
+### 修改内容
+PATCH {{url}}/posts/18
+{{header}}
+Authorization: Bearer {{login.response.body.$.token}}
+
+{
+    "title":"👮🏻👮🏻"
+}
+
+
+# 用户
+
+### 用户登录
+# @name login
+POST {{url}}/login
+{{header}}
+
+{
+    "name" : "张三",
+    "password" : "66666666"
+}

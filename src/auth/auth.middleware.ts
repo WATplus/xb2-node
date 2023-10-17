@@ -3,7 +3,8 @@ import * as userService from '../user/user.service'
 import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken"
 import { PUBLIC_KEY } from '../app/app.config'
-import { TokenPayLoad } from './auth.interface'
+import { AccessControlOpations, TokenPayLoad } from './auth.interface'
+import * as authService from "./auth.service"
 
 /**
  * 验证用户的完整性
@@ -22,6 +23,7 @@ export const validateLoginData = async (
 
     // 验证数据完整性
     if (!name) return next(new Error("NAME_IS_REQUIRED"));
+    
     if (!password) return next(new Error("PASSWORD_IS_REQUIRED"));
 
     // 验证是否已存在
@@ -40,7 +42,9 @@ export const validateLoginData = async (
     next() 
 }
 
-
+/**
+ * 验证用户
+ */
 export const author = (
     req : Request,
     res : Response,
@@ -63,5 +67,40 @@ export const author = (
         next();
     }catch(error){
         next(new Error(error.message))
+    }
+}
+
+/**
+ * 访问验证
+ */
+export const accessControl = (opations : AccessControlOpations) => {
+    return async (request:Request , response:Response , next:NextFunction)=>{
+        const {possession} = opations;
+        // 获取 userId
+        const {id : userId} = request.user;
+        // 放行管理员账户
+        if (userId == 1) return next();
+        // 准备资源
+        const resourceTypeParam = Object.keys(request.params)[0];
+        const resourceType = resourceTypeParam.replace("Id" , "");
+        const resourceId = parseInt(request.params[resourceTypeParam] , 10);
+        // 验证
+        if (possession){
+            try {
+                const ownResource = await authService.possess({
+                    resourceType,
+                    resourceId,
+                    userId
+                })
+                
+                // 如果不拥有
+                if (! ownResource) return next(new Error("USER_DOES_NOT_OWN_RESOURCE"))
+            } catch (error) {
+                next(error)
+            }
+
+        }
+        // 下一步
+        next()
     }
 }

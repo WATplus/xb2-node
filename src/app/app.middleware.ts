@@ -60,6 +60,10 @@ export const defaultErrorHendler = (
             statuCode=  401 // 未授权
             message = " Authorization 缺失或无效"
             break;
+        case "USER_DOES_NOT_OWN_RESOURCE":
+            statuCode=  403 ;
+            message = "您没有此内容的权限"
+            break;
         default:
             statuCode = 500;
             message = "默认错误处理"
